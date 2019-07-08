@@ -140,6 +140,192 @@
 			"response": []
 		},
 		{
+			"name": "Salvar Canal [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"EmailPessoal\");",
+							"pm.environment.set(\"valor\", \"carloseduardoneves.silva@gmail.com\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Canal do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/contato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Email [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"Email\");",
+							"pm.environment.set(\"valor\", \"carloseduardoneves.silva@gmail\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Email do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/contato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Phone [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"Phone\");",
+							"pm.environment.set(\"valor\", \"21983583230\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Phone do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{id_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/contato",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Obter",
 			"event": [
 				{
@@ -272,7 +458,7 @@
 						"exec": [
 							"pm.globals.set(\"nome_up\", \"Carlos Aguirre Neves\");",
 							"pm.globals.set(\"canal_up\", \"Phone\");",
-							"pm.globals.set(\"valor_up\", \"21983583230\");",
+							"pm.globals.set(\"valor_up\", \"(21) 98358-3230\");",
 							"pm.globals.set(\"obs_up\", \"Telefone residencial\");"
 						],
 						"type": "text/javascript"

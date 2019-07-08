@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using System.Security.Cryptography;
+using System.Text.RegularExpressions;
 
 namespace Desafio.Util
 {
@@ -32,6 +33,23 @@ namespace Desafio.Util
 
                 return sb.ToString();
             }
+        }
+
+        public static bool IsEmail(string email)
+        {
+            var emailPattern = @"^(([\w-]+\.)+[\w-]+|([a-zA-Z]{1}|[\w-]{2,}))@"
+                + @"((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+                            [0-9]{1,2}|25[0-5]|2[0-4][0-9])\."
+                + @"([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\.([0-1]?
+                            [0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                + @"([a-zA-Z0-9]+[\w-]+\.)+[a-zA-Z]{1}[a-zA-Z0-9-]{1,23})$";
+
+            return Regex.IsMatch(email, emailPattern);
+        }
+
+        public static bool IsPhone(string phone) {
+            var phonePattern = @"^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$";
+            return Regex.IsMatch(phone, phonePattern);
         }
     }
 }

@@ -5,6 +5,7 @@ using AutoMapper;
 using Desafio.Domain;
 using Desafio.Repository;
 using Desafio.WebAPI.Dtos;
+using Desafio.WebAPI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Desafio.WebAPI.Controllers
@@ -78,7 +79,13 @@ namespace Desafio.WebAPI.Controllers
         {
             try
             {
+                var erros = ValidateHelpers.ValidateErrors(model);
+                if (erros.Count > 0) {
+                    return BadRequest(erros);
+                }
+
                 var contato = _mapper.Map<Contato>(model);
+
                 _repository.Add(contato);
 
                 if (await _repository.SaveChangesAsync()) {
@@ -104,6 +111,11 @@ namespace Desafio.WebAPI.Controllers
         {
             try
             {
+                var erros = ValidateHelpers.ValidateErrors(model);
+                if (erros.Count > 0) {
+                    return BadRequest(erros);
+                }
+                
                 var contato = await _repository.GetById(idContato);
                 if (contato == null) {
                     return NotFound(new Error(404, "Contato não encontrato."));
