@@ -3,7 +3,7 @@
 Para implementação da API Contato, utilizei DotNet Core 2.2 (WebApi).
 Adicionei ao projeto os recursos:
 
- - EntityFramewordCore: Para acessar e gerar ao banco de dados. Utilizei o Sqlite. Está disponível em ./Desafio.WebAPI/Data/Desafio.db
+ - EntityFramewordCore: Para gerar e acessar o banco de dados Sqlite. Está disponível em ./Desafio.WebAPI/Data/Desafio.db
  - Autenticação: Para atender o requisito de statuscode 401 descrito no contato.yaml
  - Swagger: Após rodar a aplicação abrir o browser com a URL http://localhost:5000/swagger/
  - Postman: Para cobrir alguns cenários de testes.
