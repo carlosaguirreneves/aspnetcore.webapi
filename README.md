@@ -17,7 +17,7 @@ Passo 2: Instalar o plugin do Postman
 
 npm install -g newman
 
-Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro do diretório startup de projeto: Desafio.WebAPI
+Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro do diretório de startup do projeto: Desafio.WebAPI
 
 cd Desafio.WebAPI
 dotnet restore
