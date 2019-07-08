@@ -15,15 +15,15 @@ Passo 1: Instalar os seguintes frameworks.
 
 Passo 2: Instalar o plugin do Postman
 
-npm install -g newman
+- npm install -g newman
 
 Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro do diretório de startup do projeto: Desafio.WebAPI
 
-cd Desafio.WebAPI
-dotnet restore
-dotnet build
-dotnet run
+- cd Desafio.WebAPI
+- dotnet restore
+- dotnet build
+- dotnet run
 
 Passo 4: Com o seguinte comando é possível executar os testes de integração.
 
-newman run Desafio.postman_collection.json
+- newman run Desafio.postman_collection.json
