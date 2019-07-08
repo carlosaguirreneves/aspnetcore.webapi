@@ -27,3 +27,5 @@ Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro
 Passo 4: Com o seguinte comando é possível executar os testes de integração.
 
 - newman run Desafio.postman_collection.json
+
+Passo 5: Para ver os endpoints que foram criados e os cenários de testes implementados, você deve importar o arquivo Desafio.postman_collection.json no Postman. 
