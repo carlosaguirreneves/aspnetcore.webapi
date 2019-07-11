@@ -1,0 +1,12 @@
+﻿version: '2'
+services:
+    hello-aspnet-core:
+        build:
+            dockerfile: ./${DOCKER_FILE}
+            context: .
+        image: core/aspnet-core-webapi
+        container_name: aspnet-core-webapi-${STAGE}
+        environment: 
+          AMBIENTE: ${STAGE}
+        ports:
+            - "${PORT}:${PORT_INTERNAL}"
