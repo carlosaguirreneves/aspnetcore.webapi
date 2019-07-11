@@ -12,9 +12,9 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
 
 WORKDIR /app
 
-COPY --from=build-env /app/Desafio.Domain/out .
-COPY --from=build-env /app/Desafio.Repository/out .
-COPY --from=build-env /app/Desafio.Util/out .
-COPY --from=build-env /app/Desafio.WebAPI/out .
+COPY --from=build-env /app/AspnetCore.Domain/out .
+COPY --from=build-env /app/AspnetCore.Repository/out .
+COPY --from=build-env /app/AspnetCore.Util/out .
+COPY --from=build-env /app/AspnetCore.WebAPI/out .
 
-ENTRYPOINT ["dotnet", "Desafio.WebAPI.dll"]
+ENTRYPOINT ["dotnet", "AspnetCore.WebAPI.dll"]

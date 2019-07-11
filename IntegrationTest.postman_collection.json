@@ -1,0 +1,716 @@
+{
+	"info": {
+		"_postman_id": "c04228bc-fe6b-4b5c-8def-75f9e5784e5a",
+		"name": "AspnetCore",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Autenticar Usuário",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9412fe41-0798-4e47-beab-5aa3a2fda311",
+						"exec": [
+							"pm.test(\"Autenticar Usuário [Sucesso]\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(200);",
+							"    pm.expect(jsonData.userName).to.include(pm.variables.get(\"login\"));",
+							"    pm.expect(jsonData.token).to.not.equal(\"\");",
+							"    ",
+							"    pm.globals.set(\"id_token\", jsonData.token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "134d78b5-7c4e-450b-8657-78da6169ea2e",
+						"exec": [
+							"pm.environment.set(\"login\", \"carlos.aguirre.neves\");",
+							"pm.environment.set(\"password\", \"123456\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"{{login}}\",\r\n    \"password\": \"{{password}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/login",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"Email\");",
+							"pm.environment.set(\"valor\", \"carloseduardoneves.silva@gmail.com\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Inserir Contato [Sucesso]\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(201);",
+							"    ",
+							"    pm.expect(jsonData.id).to.not.equal(\"\");",
+							"    pm.expect(jsonData.nome).to.include(pm.variables.get(\"nome\"));",
+							"    pm.expect(jsonData.canal).to.include(pm.variables.get(\"canal\"));",
+							"    pm.expect(jsonData.valor).to.include(pm.variables.get(\"valor\"));",
+							"    pm.expect(jsonData.obs).to.include(pm.variables.get(\"obs\"));",
+							"    ",
+							"    pm.globals.set(\"id_contato\", jsonData.id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contato",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Canal [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"EmailPessoal\");",
+							"pm.environment.set(\"valor\", \"carloseduardoneves.silva@gmail.com\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Canal do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contato",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Email [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"Email\");",
+							"pm.environment.set(\"valor\", \"carloseduardoneves.silva@gmail\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Email do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contato",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Phone [Inválido]",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "82741957-4ea3-4369-a5a1-51819908ae40",
+						"exec": [
+							"pm.environment.set(\"nome\", \"Carlos Eduardo Aguirre Neves\");",
+							"pm.environment.set(\"canal\", \"Phone\");",
+							"pm.environment.set(\"valor\", \"21983583230\");",
+							"pm.environment.set(\"obs\", \"Contato residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "97bb8719-c5e1-47e6-8273-9b5db9ebb9fe",
+						"exec": [
+							"pm.test(\"Phone do Contato [Inválido]\", function() {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{id_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome}}\",\n    \"Canal\": \"{{canal}}\",\n    \"Valor\": \"{{valor}}\",\n    \"Obs\": \"{{obs}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contato",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3be04126-0544-4b0c-a14b-712e47c70e6d",
+						"exec": [
+							"pm.test(\"Inserir Contato [Sucesso]\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"    pm.expect(jsonData.id).to.equal(pm.variables.get(\"id_contato\"));",
+							"    pm.expect(jsonData.nome).to.not.equal(\"\");",
+							"    pm.expect(jsonData.canal).to.not.equal(\"\");",
+							"    pm.expect(jsonData.valor).to.not.equal(\"\");",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato/{{id_contato}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"{{id_contato}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar com paginação",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c91726f-daaf-4026-86b5-b190b8b7a944",
+						"exec": [
+							"pm.test(\"Listar Contato [Sucesso]\", function() {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato?page=1&size=10",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Atualizar",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4a743685-bfc4-4590-96d7-d889b14670a3",
+						"exec": [
+							"pm.globals.set(\"nome_up\", \"Carlos Aguirre Neves\");",
+							"pm.globals.set(\"canal_up\", \"Phone\");",
+							"pm.globals.set(\"valor_up\", \"(21) 98358-3230\");",
+							"pm.globals.set(\"obs_up\", \"Telefone residencial\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "730f3a62-7746-45ff-818c-c1a57ce68853",
+						"exec": [
+							"pm.test(\"Atualizar Contato [Sucesso]\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"    pm.expect(jsonData.nome).to.include(pm.globals.get(\"nome_up\"));",
+							"    pm.expect(jsonData.canal).to.include(pm.globals.get(\"canal_up\"));",
+							"    pm.expect(jsonData.valor).to.include(pm.globals.get(\"valor_up\"));",
+							"    pm.expect(jsonData.obs).to.include(pm.globals.get(\"obs_up\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"Nome\": \"{{nome_up}}\",\n    \"Canal\": \"{{canal_up}}\",\n    \"Valor\": \"{{valor_up}}\",\n    \"Obs\": \"{{obs_up}}\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/contato/{{id_contato}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"{{id_contato}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter Contato Atualizado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3be04126-0544-4b0c-a14b-712e47c70e6d",
+						"exec": [
+							"pm.test(\"Obter Contato Atualizado [Sucesso]\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(200);",
+							"    ",
+							"    pm.expect(jsonData.nome).to.equal(pm.globals.get(\"nome_up\"));",
+							"    pm.expect(jsonData.canal).to.equal(pm.globals.get(\"canal_up\"));",
+							"    pm.expect(jsonData.valor).to.equal(pm.globals.get(\"valor_up\"));",
+							"    pm.expect(jsonData.obs).to.equal(pm.globals.get(\"obs_up\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{id_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato/{{id_contato}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"{{id_contato}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Excluir",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6732879-e432-4ce4-9740-aa91ef210027",
+						"exec": [
+							"pm.test(\"Excluir Contato [Sucesso]\", function() {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{id_token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato/{{id_contato}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"{{id_contato}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Contato Não Encontrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3be04126-0544-4b0c-a14b-712e47c70e6d",
+						"exec": [
+							"pm.test(\"Contato Não Encontrado\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{id_token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato/50ecaadf-c63e-479a-b57f-747d2772de7c",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"50ecaadf-c63e-479a-b57f-747d2772de7c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuário não autorizado",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3be04126-0544-4b0c-a14b-712e47c70e6d",
+						"exec": [
+							"pm.test(\"Usuário não autorizado [Status code é 401]\", function() {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer "
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{url}}/contato/{{id_contato}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"contato",
+						"{{id_contato}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
