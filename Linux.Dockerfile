@@ -12,6 +12,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:2.2-stretch-slim
 
 WORKDIR /app
 
+COPY ./AspnetCore.WebAPI/Data ./Data
 COPY --from=build-env /app/AspnetCore.Domain/out .
 COPY --from=build-env /app/AspnetCore.Repository/out .
 COPY --from=build-env /app/AspnetCore.Util/out .
