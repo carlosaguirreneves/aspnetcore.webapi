@@ -1,12 +1,15 @@
-## Desafio DotnetCore
+# DotnetCore WebAPI
 
-Para implementação da API Contato, utilizei DotNet Core 2.2 (WebApi).
-Adicionei ao projeto os recursos:
+Esta aplicação visa implementar um simples projeto Web API apenas para demonstrar a utilização do .NetCore 2.2 Web API usando EntityFrameworkCore e, para não deixar a API aberta ao público, foi implementado autenticação usando o padrão Token JWT. Neste projeto você vai encontrar os seguintes recursos:
 
- - EntityFramewordCore: Para gerar e acessar o banco de dados Sqlite. Está disponível em ./Desafio.WebAPI/Data/Desafio.db
- - Autenticação: Para atender o requisito de statuscode 401 descrito no contato.yaml
+ - EntityFrameworkCore: Para gerar e acessar o banco de dados Sqlite. Está disponível em ./AspnetCore.WebAPI/Data/BancoSqLite.db
+ - Autenticação: Para atender o requisito de statuscode 401 descrito no Contato.yaml
  - Swagger: Após rodar a aplicação abrir o browser com a URL http://localhost:5000/swagger/
  - Postman: Para cobrir alguns cenários de testes.
+
+## Executando a aplicação localmente
+
+Para executar a aplicação localmente e rodar os testes de integração automatizados, basta seguir os seguintes passos abaixo.
 
 Passo 1: Instalar os seguintes frameworks.
 
@@ -17,15 +20,46 @@ Passo 2: Instalar o plugin do Postman
 
 - npm install -g newman
 
-Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro do diretório de startup do projeto: Desafio.WebAPI
+Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro do diretório de startup do projeto: AspnetCore.WebAPI
 
-- cd Desafio.WebAPI
+- cd AspnetCore.WebAPI
 - dotnet restore
 - dotnet build
 - dotnet run
 
 Passo 4: Com o seguinte comando é possível executar os testes de integração.
 
-- newman run Desafio.postman_collection.json
+- newman run IntegrationTest.postman_collection.json --global-var="url=http://localhost:5000"
 
-Passo 5: Para ver os endpoints que foram criados e os cenários de testes implementados, você deve importar o arquivo Desafio.postman_collection.json no Postman. 
+Passo 5: Para ver os endpoints que foram criados e os cenários de testes implementados, você deve importar o arquivo IntegrationTest.postman_collection.json no Postman.
+
+## Executando a aplicação em Container Docker
+
+Caso você queria executar a aplicação em um container docker siga os seguintes passos abaixo:
+
+### Pré requisito
+
+- Docker
+- Docker Compose
+
+### Executando o container
+
+O comando abaixo cria a imagem e executa o container. Após rodar o comando a aplicação já estará disponível através da url: http://localhost:5000/swagger. Todos os campos devem ser executados dentro do diretório raiz da aplicação.
+
+- docker-compose build && docker-compose up
+
+O seguite comando encerra o processo responsável pelo container.
+
+- docker-compose down
+
+## Comandos úteis do Docker Compose
+
+Abaixo segue alguns comandos que são úteis quando se trabalha com Docker usando Docker Compose.
+
+- docker config: Exibe as configurações do arquivo docker-compose.yml
+
+- docker-compose build: Constrói a imagem que será usado para executar o container.
+
+- docker-compose up: Executa o container.
+
+- docker-compose down --rmi all: Encerrar o processo e remover a imagem.
