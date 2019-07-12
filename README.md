@@ -58,8 +58,8 @@ Abaixo segue alguns comandos que são úteis quando se trabalha com Docker usand
 
 - docker config: Exibe as configurações do arquivo docker-compose.yml
 
-- docker-compose build: Constrói a imagem que será usado para executar o container.
+- docker-compose build: Cria a imagem que é usada para executar o container.
 
 - docker-compose up: Executa o container.
 
-- docker-compose down --rmi all: Encerrar o processo e remover a imagem.
+- docker-compose down --rmi all: Encerrar o processo, remove a imagem e os recursos alocados.
