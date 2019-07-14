@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetCore.Domain", "Aspnet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetCore.Util", "AspnetCore.Util\AspnetCore.Util.csproj", "{DF43D6FC-9B01-4B20-9A6B-005E4E3FFFF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetCore.IntegrationTest", "AspnetCore.IntegrationTest\AspnetCore.IntegrationTest.csproj", "{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{DF43D6FC-9B01-4B20-9A6B-005E4E3FFFF9}.Release|x64.Build.0 = Release|Any CPU
 		{DF43D6FC-9B01-4B20-9A6B-005E4E3FFFF9}.Release|x86.ActiveCfg = Release|Any CPU
 		{DF43D6FC-9B01-4B20-9A6B-005E4E3FFFF9}.Release|x86.Build.0 = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|x64.Build.0 = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Debug|x86.Build.0 = Debug|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|x64.ActiveCfg = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|x64.Build.0 = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|x86.ActiveCfg = Release|Any CPU
+		{B364A2C2-DDEE-41C5-93BA-DD341BA317CE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

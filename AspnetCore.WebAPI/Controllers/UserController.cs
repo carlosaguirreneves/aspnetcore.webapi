@@ -41,11 +41,11 @@ namespace AspnetCore.WebAPI.Controllers
                 var user = await _repository.FindByUserName(model.Login);
                 if (user != null && user.Password == Util.Utility.ComputeHash(model.Password)) 
                 {
-                    return Ok(new
+                    return Ok(new UserTokenDto
                     {
-                        id = user.Id,
-                        userName = user.UserName,
-                        token = GenerateJWToken(user)
+                        Id = user.Id,
+                        UserName = user.UserName,
+                        Token = GenerateJWToken(user)
                     });
                 }
             }
