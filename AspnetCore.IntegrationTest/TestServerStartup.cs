@@ -36,7 +36,7 @@ namespace AspnetCore.IntegrationTest
 
         public void Dispose()
         {
-            //throw new NotImplementedException();
+            Client.Dispose();
         }
     }
 }
