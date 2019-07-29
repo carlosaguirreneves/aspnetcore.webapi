@@ -27,9 +27,13 @@ Passo 3: Executar os comandos para rodar a aplicação. Necessário estar dentro
 - dotnet build
 - dotnet run
 
-Passo 4: Com o seguinte comando é possível executar os testes de integração.
+Passo 4: Com o seguinte comando é possível executar os testes de integração. É necessário estar na raiz do projeto.
 
+Executar usando Postman:
 - newman run IntegrationTest.postman_collection.json --global-var="url=http://localhost:5000"
+
+Executar usando .Net Core Xunit:
+- dotnet test
 
 Passo 5: Para ver os endpoints que foram criados e os cenários de testes implementados, você deve importar o arquivo IntegrationTest.postman_collection.json no Postman.
 
